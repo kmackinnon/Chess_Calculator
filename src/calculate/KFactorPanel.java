@@ -21,7 +21,7 @@ public class KFactorPanel extends JPanel implements Standard{
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setPreferredSize(new Dimension(STD_WIDTH/3, STDH_TOP));
             //bottom, left, right, top
-        setBorder(new EmptyBorder(15, 20, 5, 5) );  
+        setBorder(new EmptyBorder(5, 15, 5, 5) );  
         
         build();
         

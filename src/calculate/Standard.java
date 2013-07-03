@@ -4,12 +4,12 @@ package calculate;
 public interface Standard {
     
     // Title of the Application    
-    String TITLE = "Chess Rating Calculator";
+    String TITLE = "Rating Calculator";
     
     // KFactor Values
     String[] KFACTOR_VALUES = {"10","15","30"};
     
-    // Standard Height for the top panes
+    // Standard Height for the top pane
     int STDH_TOP = 100;
     
     // Standard Height for the opponent pane
@@ -19,6 +19,6 @@ public interface Standard {
     int STDH_EXE = 50;
     
     // Standard Width of the application
-    int STD_WIDTH = 300;
+    int STD_WIDTH = 280;
     
 }

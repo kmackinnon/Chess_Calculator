@@ -4,6 +4,7 @@ package calculate;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 
+import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -17,7 +18,6 @@ public class OpponentsPanel extends JPanel implements Standard{
     public OpponentsPanel(){
         //setting panel's properties
         setLayout(new GridLayout(5,6));
-        //setBackground(Color.blue);
         setPreferredSize(new Dimension(STD_WIDTH, STDH_OPP));
             //bottom, left, right, top
         setBorder(new EmptyBorder(20, 10, 10, 30) );
@@ -26,17 +26,18 @@ public class OpponentsPanel extends JPanel implements Standard{
     
     }
     
+    // builds the panel's contents
     private void build(){
         
-        for(int i = 0; i< 15; i++){
+        for (int i = 0; i<15; i++){
             
             //Label Creation and Implementation
             String numberstring;
             int use = i+1;
-            if(use<=9){
-                numberstring = "    "+use+".";
+            if (use<=9){
+                numberstring = "      " + use + ".";
             } else {
-                numberstring = "   "+use+".";
+                numberstring = "     " + use + ".";
             }
             opponentnumber[i] = new JLabel();
             opponentnumber[i].setText(numberstring);
@@ -45,13 +46,6 @@ public class OpponentsPanel extends JPanel implements Standard{
             //Field Creation and Implementation
             opponentfield[i] = new JTextField();
             add(opponentfield[i]);
-        }
-    }
-    
-    //sets all the fields to empty
-    public static void cleanup(){
-        for(int i = 0; i < 15; i++){
-            opponentfield[i].setText("");
         }
     }
     
@@ -74,6 +68,13 @@ public class OpponentsPanel extends JPanel implements Standard{
         }
         
         return players;
+    }
+    
+    //sets all the fields to empty
+    public static void cleanup(){
+        for(int i = 0; i < 15; i++){
+            opponentfield[i].setText("");
+        }
     }
     
 }

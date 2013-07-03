@@ -1,5 +1,7 @@
 package calculate;
 
+import javax.swing.JOptionPane;
+
 /*
  Rn = Ro + K (W - We)
  Rn	New rating
@@ -38,7 +40,7 @@ public class Calculator {
 
 		// to loop though the players array
 		int playercount = players.length;
-		
+
 		while (playercount > 0) {
 
 			// setting each opponent in the array to be player2
@@ -64,7 +66,8 @@ public class Calculator {
 
 		newRating = newRating(event.getPlayer1(), totalRatingChange);
 
-		System.out.println("Total Change: " + round(totalRatingChange, 2) + "\nNew Rating: " + newRating);
+		JOptionPane.showMessageDialog(null, "Total Change: " + round(totalRatingChange, 2) + "\nNew Rating: "
+				+ newRating);
 	}
 
 	// determine players' rating difference
@@ -83,7 +86,7 @@ public class Calculator {
 
 		// we will simulate a map by using an array where the index is the key and the value is the expected score
 		// these elements were retrieved by parsing an HTML table with Python and then printing them out
-		double[] fide = {0.5, 0.5, 0.5, 0.5, 0.51, 0.51, 0.51, 0.51, 0.51, 0.51, 0.51, 0.52, 0.52, 0.52, 0.52, 0.52,
+		double[] fide = { 0.5, 0.5, 0.5, 0.5, 0.51, 0.51, 0.51, 0.51, 0.51, 0.51, 0.51, 0.52, 0.52, 0.52, 0.52, 0.52,
 				0.52, 0.52, 0.53, 0.53, 0.53, 0.53, 0.53, 0.53, 0.53, 0.53, 0.54, 0.54, 0.54, 0.54, 0.54, 0.54, 0.54,
 				0.55, 0.55, 0.55, 0.55, 0.55, 0.55, 0.55, 0.56, 0.56, 0.56, 0.56, 0.56, 0.56, 0.56, 0.57, 0.57, 0.57,
 				0.57, 0.57, 0.57, 0.57, 0.58, 0.58, 0.58, 0.58, 0.58, 0.58, 0.58, 0.58, 0.59, 0.59, 0.59, 0.59, 0.59,
@@ -106,7 +109,7 @@ public class Calculator {
 				0.88, 0.88, 0.89, 0.89, 0.89, 0.89, 0.89, 0.89, 0.89, 0.89, 0.89, 0.89, 0.89, 0.89, 0.89, 0.9, 0.9,
 				0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.91, 0.91, 0.91, 0.91,
 				0.91, 0.91, 0.91, 0.91, 0.91, 0.91, 0.91, 0.91, 0.91, 0.91, 0.91, 0.91, 0.91, 0.92, 0.92, 0.92, 0.92,
-				0.92, 0.92, 0.92, 0.92, 0.92};
+				0.92, 0.92, 0.92, 0.92, 0.92 };
 
 		if (ratingDif < 0) {
 			return 1 - fide[Math.abs(ratingDif)]; // if player1 is lower rated

@@ -20,9 +20,8 @@ public class SelfPanel extends JPanel implements Standard{
         
         //setting panel's properties
         setLayout(new GridLayout(2,2));
-        //setBackground(Color.blue);
         setPreferredSize(new Dimension(2*STD_WIDTH/3, STDH_TOP));
-            //bottom, left, right, top
+        	//bottom, left, right, top
         setBorder(new EmptyBorder(30, 30, 30, 30) );
         
         build();

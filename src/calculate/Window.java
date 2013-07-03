@@ -2,8 +2,10 @@ package calculate;
 
 import java.awt.Container;
 import java.awt.Dimension;
+
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 public class Window extends JFrame implements Standard{
     
@@ -23,18 +25,18 @@ public class Window extends JFrame implements Standard{
     
     private void framemake(){
         //Setters for the window
-        setLocationRelativeTo(null);
         setPreferredSize(new Dimension(STD_WIDTH, STDH_TOP + STDH_OPP + STDH_EXE));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
         setTitle(TITLE);
         pack();
         setVisible(true);
+        setLocationRelativeTo(null);
     }
     
     private void panelmake(){
         
-        //setting up the X_AXIS Container for the first two panel
+        //setting up the X_AXIS Container for the first two panels
         sub = new Container();
         sub.setLayout(new BoxLayout(sub, BoxLayout.X_AXIS));
         sub.add(selfpanel);
@@ -48,5 +50,5 @@ public class Window extends JFrame implements Standard{
         main.add(executionpanel);    
         
     }
-  
+   
 }

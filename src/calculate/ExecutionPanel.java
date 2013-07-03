@@ -18,7 +18,6 @@ public class ExecutionPanel extends JPanel implements Standard{
     public ExecutionPanel(){
          //setting panel's properties
         setLayout(new FlowLayout());
-        //setBackground(Color.blue);
         setPreferredSize(new Dimension(STD_WIDTH, STDH_OPP));
             //bottom, left, right, top
         setBorder(new EmptyBorder(15, 10, 10, 10) );
@@ -35,12 +34,6 @@ public class ExecutionPanel extends JPanel implements Standard{
     }
     
     private static void events(){
-        exit.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e)
-            {
-                System.exit(0);
-            }
-        }); 
         
         calculate.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e)
@@ -62,6 +55,13 @@ public class ExecutionPanel extends JPanel implements Standard{
                 OpponentsPanel.cleanup();
                 SelfPanel.cleanup();
                 KFactorPanel.cleanup();
+            }
+        });
+        
+        exit.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e)
+            {
+                System.exit(0);
             }
         }); 
     }
