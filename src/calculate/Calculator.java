@@ -18,33 +18,27 @@ public class Calculator {
 	final static double draw = 0.5;
 	final static double loss = 0.0;
 
-	final static int kNew = 30; // for players with less than 30 games
+	final static int kNew = 30; // for players with fewer than 30 games
 	final static int kReg = 15; // for players who have never reached 2400
 	final static int kMaster = 10; // for players who have been over 2400
 
-	private Tournament event;
-
 	public Calculator(Tournament event) {
-		this.event = event;
 
-		// opponent (each player in arraylist)
-		int player2;
+		int player2; // opponent (each player in players[])
+		double result; // result of a single game arbitrarily assigned
 
-		// result of a single game arbitrarily assigned
-		double result;
-
-		double totalRatingChange = 0;
-		double newRating;
+		double ratingChange = 0; // how much rating will change in tournament
+		double newRating; // new rating after tournament
 
 		int[] players = event.getPlayers();
 
 		// to loop though the players array
-		int playercount = players.length;
+		int playerCount = players.length;
 
-		while (playercount > 0) {
+		while (playerCount > 0) {
 
 			// setting each opponent in the array to be player2
-			player2 = players[playercount - 1];
+			player2 = players[playerCount - 1];
 
 			if (event.getScore() > 0.5) {
 				result = win;
@@ -58,34 +52,36 @@ public class Calculator {
 			}
 
 			// summing the rating change from each game
-			totalRatingChange += ratingChange(event.getKFactor(), result,
-					expected(ratingDiff(event.getPlayer1(), player2)));
+			ratingChange += ratingChange(event.getKFactor(), result, expected(ratingDiff(event.getPlayer1(), player2)));
 
-			playercount--;
+			playerCount--;
 		}
 
-		newRating = newRating(event.getPlayer1(), totalRatingChange);
+		newRating = newRating(event.getPlayer1(), ratingChange);
 
-		JOptionPane.showMessageDialog(null, "Total Change: " + round(totalRatingChange, 2) + "\nNew Rating: "
-				+ newRating);
+		// if statement ensures that the players array is populated
+		if (players.length > 0) {
+			JOptionPane.showMessageDialog(null, "Total Change: " + round(ratingChange, 2) + "\nNew Rating: "
+					+ newRating);
+		}
 	}
 
-	// determine players' rating difference
+	// determines rating difference between user and an opponent
 	public static int ratingDiff(int myRating, int opRating) {
 
 		if ((myRating - opRating) > 400) {
 			return 400;
 		} else if ((myRating - opRating) < -400) {
 			return -400;
+		} else {
+			return myRating - opRating;
 		}
-		return myRating - opRating;
 	}
 
-	// calculates your expected score against one opponent
+	// calculates user's expected score against an opponent
 	public static double expected(int ratingDif) {
 
 		// we will simulate a map by using an array where the index is the key and the value is the expected score
-		// these elements were retrieved by parsing an HTML table with Python and then printing them out
 		double[] fide = { 0.5, 0.5, 0.5, 0.5, 0.51, 0.51, 0.51, 0.51, 0.51, 0.51, 0.51, 0.52, 0.52, 0.52, 0.52, 0.52,
 				0.52, 0.52, 0.53, 0.53, 0.53, 0.53, 0.53, 0.53, 0.53, 0.53, 0.54, 0.54, 0.54, 0.54, 0.54, 0.54, 0.54,
 				0.55, 0.55, 0.55, 0.55, 0.55, 0.55, 0.55, 0.56, 0.56, 0.56, 0.56, 0.56, 0.56, 0.56, 0.57, 0.57, 0.57,
@@ -111,11 +107,11 @@ public class Calculator {
 				0.91, 0.91, 0.91, 0.91, 0.91, 0.91, 0.91, 0.91, 0.91, 0.91, 0.91, 0.91, 0.91, 0.92, 0.92, 0.92, 0.92,
 				0.92, 0.92, 0.92, 0.92, 0.92 };
 
+		// if player1 is lower rated
 		if (ratingDif < 0) {
-			return 1 - fide[Math.abs(ratingDif)]; // if player1 is lower rated
+			return 1 - fide[Math.abs(ratingDif)];
 		}
-
-		return fide[ratingDif]; // if player1 is higher rated than his opponents
+		return fide[ratingDif]; // if player1 is higher rated than his opponent
 	}
 
 	// calculates a player's rating change
