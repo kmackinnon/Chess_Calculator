@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
@@ -36,11 +37,20 @@ public class SelfPanel extends JPanel implements Standard {
 
 	// getters
 	public static int getPlayer1() {
-		return Integer.parseInt(ratingfield.getText());
+		try {
+			return Integer.parseInt(ratingfield.getText());
+		}
+		catch (NumberFormatException e){
+			return 999; // this will signal an invalid rating to the Calculator class
+		}
 	}
 
 	public static double getScore() {
-		return Double.parseDouble(scorefield.getText());
+		try {
+			return Double.parseDouble(scorefield.getText());
+		} catch (NumberFormatException e){
+			return -1; // this will signal an invalid score to the Calculator class
+		}
 	}
 
 	// resets the panel to original state

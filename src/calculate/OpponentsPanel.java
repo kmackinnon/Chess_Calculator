@@ -58,15 +58,24 @@ public class OpponentsPanel extends JPanel implements Standard {
 
 		try {
 			for (int i = 0; i < NUM_FIELDS; i++) {
+				// ensuring that the user has entered valid opponent ratings
 				if (!opponentfield[i].getText().isEmpty() && isInteger(opponentfield[i].getText())) {
-					count++;
+					if (Integer.parseInt(opponentfield[i].getText()) < 1000) {
+						count = 0;
+						JOptionPane.showMessageDialog(null, "Please enter ratings of at least 1000.");
+						cleanup();
+					}
+					else {
+						count++;
+					}
 				}
 			}
 
-			// if the user enters an invalid rating (not an integer), execute catch block
+			// if the user enters anything other than an integer, execute catch block
 		} catch (NumberFormatException e) {
 			count = 0;
-			JOptionPane.showMessageDialog(null, "Please enter valid opponent ratings.");
+			JOptionPane.showMessageDialog(null, "Please enter opponent ratings.\n"
+					+ "As per FIDE rules, the minimum rating is 1000.");
 			cleanup();
 		}
 

@@ -24,21 +24,34 @@ public class Calculator {
 
 	public Calculator(Tournament event) {
 
-		int player2; // opponent (each player in players[])
-		double result; // result of a single game arbitrarily assigned
+		int oldRating = event.getPlayer1(); // gets the user's initial rating
+		int[] players = event.getPlayers(); // gets the opponents in an int array
 
-		double ratingChange = 0; // how much rating will change in tournament
-		double newRating; // new rating after tournament
+		int playerCount = players.length; // to loop though the players array
 
-		int[] players = event.getPlayers();
+		// to ensure the user enters a valid rating and tournament score
+		boolean validRating = oldRating >= 1000;
+		boolean validScore = (event.getScore() >= 0) && (event.getScore() % 0.5 == 0)
+				&& (event.getScore() <= playerCount);
 
-		// to loop though the players array
-		int playerCount = players.length;
+		double ratingChange = 0; // how much user's rating will change in tournament
 
 		while (playerCount > 0) {
 
-			// setting each opponent in the array to be player2
-			player2 = players[playerCount - 1];
+			// if the user's rating is not valid, display dialog message
+			if (!validRating) {
+				JOptionPane.showMessageDialog(null, "User's rating must be an integer of at least 1000.");
+			}
+
+			// if the user's score is not valid, display dialog message
+			if (!validScore) {
+				JOptionPane.showMessageDialog(null, "Score is the number of points achieved.\n"
+						+ "It must be a multiple of 0.5 and not exceed the number of games played");
+				break;
+			}
+
+			int player2 = players[playerCount - 1]; // setting each opponent in the array to be player2
+			double result; // result of a single game arbitrarily assigned
 
 			if (event.getScore() > 0.5) {
 				result = win;
@@ -52,15 +65,19 @@ public class Calculator {
 			}
 
 			// summing the rating change from each game
-			ratingChange += ratingChange(event.getKFactor(), result, expected(ratingDiff(event.getPlayer1(), player2)));
+			ratingChange += ratingChange(event.getKFactor(), result, expected(ratingDiff(oldRating, player2)));
 
 			playerCount--;
 		}
 
-		newRating = newRating(event.getPlayer1(), ratingChange);
+		// the minimum possible fide rating is 1000;
+		if (oldRating + ratingChange < 1000) {
+			ratingChange = -(oldRating - 1000);
+		}
+		double newRating = newRating(oldRating, ratingChange);
 
 		// if statement ensures that the players array is populated
-		if (players.length > 0) {
+		if (players.length > 0 && validScore && validRating) {
 			JOptionPane.showMessageDialog(null, "Total Change: " + round(ratingChange, 2) + "\nNew Rating: "
 					+ newRating);
 		}
