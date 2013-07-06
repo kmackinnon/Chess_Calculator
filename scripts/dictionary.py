@@ -29,8 +29,8 @@ for entry in entryExpr.searchString(open(os.path.dirname(__file__) + '/../fide.h
     lookup[i] = tuple(entry.vals)
 
 # print the first column of the dictionary to a text file
-f = open('expected.txt', 'w')
+f = open(os.path.dirname(__file__) + 'expected.txt', 'w')
 # we only need expected change up to a rating difference of 400
 for i in range(0,401):
-  f.write(str(lookup[i][0]) + ", ")
+  f.write(str(lookup[i][0]) + "\n")
 f.close()
