@@ -2,22 +2,22 @@ package calculate;
 
 public class Tournament {
 
-	private int player1; // your own rating
+	private int userRating; // your own rating
 	private double score; // your score in tournament
 	private int kFactor; // your own kFactor
 	private int[] players; // your opponents
 
 	// constructor to assign the parameters to the private properties
-	public Tournament(int player1, double score, int kFactor, int[] players) {
-		this.player1 = player1;
+	public Tournament(int userRating, double score, int kFactor, int[] players) {
+		this.userRating = userRating;
 		this.score = score;
 		this.kFactor = kFactor;
 		this.players = players;
 	}
 
 	// getters
-	public int getPlayer1() {
-		return player1;
+	public int getUserRating() {
+		return userRating;
 	}
 
 	public double getScore() {
