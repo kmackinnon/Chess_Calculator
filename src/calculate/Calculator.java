@@ -7,11 +7,9 @@ import java.io.IOException;
 import javax.swing.JOptionPane;
 
 /**
- * Used to calculate a user's rating change and new rating following a
- * tournament
+ * Used to calculate a user's rating change and new rating following a tournament
  * 
- * To find the formula used, refer to
- * http://www.fide.com/fide/handbook.html?id=161&view=article
+ * To find the formula used, refer to http://www.fide.com/fide/handbook.html?id=161&view=article
  * 
  * @author Keith MacKinnon
  * @date Dec 14, 2013
@@ -27,8 +25,7 @@ public class Calculator {
 	private static final int MAX_RATING_DIFF = 400;
 
 	/**
-	 * Creates the calculator which takes a Tournament event and then displays a
-	 * user's new rating
+	 * Creates the calculator which takes a Tournament event and then displays a user's new rating
 	 * 
 	 * @param event
 	 */
@@ -82,7 +79,7 @@ public class Calculator {
 	}
 
 	/**
-	 * Determines rating difference between uesr and opponent
+	 * Determines rating difference between user and opponent
 	 * 
 	 * @param myRating
 	 * @param opRating
@@ -107,11 +104,9 @@ public class Calculator {
 	 */
 	public static double computeExpectedScore(int ratingDif) {
 
-		double[] fide = new double[401]; // length 401 since rating will be
-											// 0-400
+		double[] fide = new double[401]; // length 401 since rating will be 0-400
 
-		// retrieve text file which contains all expected values for rating
-		// differences
+		// retrieve text file which contains all expected values for rating differences
 		try {
 			BufferedReader in = new BufferedReader(new FileReader("expected.txt"));
 			String str = in.readLine();
@@ -133,6 +128,8 @@ public class Calculator {
 
 	/**
 	 * 
+	 * Calculates one game rating change.
+	 * 
 	 * @param kFactor
 	 * @param result
 	 * @param expResult
@@ -142,6 +139,7 @@ public class Calculator {
 
 		double change = kFactor * (result - expResult);
 
+		// method requires old rating to ensure change will not take user below minimum possible rating
 		if ((oldRating + change) < MIN_RATING) {
 			return oldRating - computeNewRating(oldRating, change);
 		}
@@ -149,6 +147,8 @@ public class Calculator {
 	}
 
 	/**
+	 * 
+	 * Calculates a player's new rating after a tournament.
 	 * 
 	 * @param oldRating
 	 * @param change
@@ -163,6 +163,8 @@ public class Calculator {
 	}
 
 	/**
+	 * 
+	 * Checks to ensure that the user correctly entered valid rating and score fields.
 	 * 
 	 * @param isRatingValid
 	 * @param isScoreValid
@@ -186,6 +188,8 @@ public class Calculator {
 	}
 
 	/**
+	 * 
+	 * Helper method to round double values.
 	 * 
 	 * @param value
 	 * @param decimals
