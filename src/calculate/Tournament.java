@@ -2,12 +2,11 @@ package calculate;
 
 public class Tournament {
 
-	private int userRating; // your own rating
-	private double score; // your score in tournament
-	private int kFactor; // your own kFactor
-	private int[] players; // your opponents
+	private int userRating;
+	private double score;
+	private int kFactor;
+	private int[] players;
 
-	// constructor to assign the parameters to the private properties
 	public Tournament(int userRating, double score, int kFactor, int[] players) {
 		this.userRating = userRating;
 		this.score = score;
@@ -15,7 +14,6 @@ public class Tournament {
 		this.players = players;
 	}
 
-	// getters
 	public int getUserRating() {
 		return userRating;
 	}
@@ -32,7 +30,12 @@ public class Tournament {
 		return players;
 	}
 
-	// setter
+	/**
+	 * Reduce the total score in the tournament by the result of a single game.
+	 * 
+	 * @param result
+	 * @return the new score
+	 */
 	public double setScore(double result) {
 		return score -= result;
 	}
