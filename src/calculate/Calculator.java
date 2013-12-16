@@ -123,7 +123,7 @@ public class Calculator {
 			e.printStackTrace();
 		}
 
-		return (ratingDif < 0) ? (1 - fide[Math.abs(ratingDif)]) : fide[ratingDif];
+		return (ratingDif < 0) ? round(1 - fide[Math.abs(ratingDif)], 2) : round(fide[ratingDif], 2);
 	}
 
 	/**
