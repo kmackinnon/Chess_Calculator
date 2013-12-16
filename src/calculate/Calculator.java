@@ -6,31 +6,37 @@ import java.io.IOException;
 
 import javax.swing.JOptionPane;
 
-/*
- Rn = Ro + K (W - We)
- Rn	New rating
- Ro	Old rating
- K	Value of a single game
- W	Score; 1.0 for a WIN, 0.5 for a DRAW
- We	Expected score based on Ro
-
- Refer to http://www.fide.com/fide/handbook.html?id=161&view=article
+/**
+ * Used to calculate a user's rating change and new rating following a
+ * tournament
+ * 
+ * To find the formula used, refer to
+ * http://www.fide.com/fide/handbook.html?id=161&view=article
+ * 
+ * @author Keith MacKinnon
+ * @date Dec 14, 2013
+ * 
  */
 public class Calculator {
 
 	private static final double WIN = 1.0;
 	private static final double DRAW = 0.5;
 	private static final double LOSS = 0.0;
-	
+
 	private static final int MIN_RATING = 1000;
 	private static final int MAX_RATING_DIFF = 400;
-	
 
+	/**
+	 * Creates the calculator which takes a Tournament event and then displays a
+	 * user's new rating
+	 * 
+	 * @param event
+	 */
 	public Calculator(Tournament event) {
 
 		int oldRating = event.getUserRating();
 		int[] players = event.getPlayers();
-		int playerCount = players.length; 
+		int playerCount = players.length;
 
 		// to ensure the user enters a valid rating and tournament score
 		boolean isRatingValid = oldRating >= MIN_RATING;
@@ -41,13 +47,13 @@ public class Calculator {
 
 		while (playerCount > 0) {
 
-			if (!checkValidity(isRatingValid, isScoreValid)){
+			if (!checkValidity(isRatingValid, isScoreValid)) {
 				break;
 			}
 
 			// setting each player in the array to be the opponent
 			int opponentRating = players[playerCount - 1];
-			double result; 
+			double result;
 
 			// result of a single game arbitrarily assigned
 			if (event.getScore() > 0.5) {
@@ -62,14 +68,10 @@ public class Calculator {
 			}
 
 			// summing the rating change from each game
-			computeRatingChange += computeRatingChange(event.getKFactor(), result, computeExpectedScore(computeRatingDiff(oldRating, opponentRating)));
+			computeRatingChange += computeRatingChange(event.getUserRating(), event.getKFactor(), result,
+					computeExpectedScore(computeRatingDiff(oldRating, opponentRating)));
 
 			playerCount--;
-		}
-
-		// the minimum possible FIDE rating is MIN_RATING;
-		if (oldRating + computeRatingChange < MIN_RATING) {
-			computeRatingChange = -(oldRating - MIN_RATING);
 		}
 
 		// ensures that the players array is populated
@@ -105,23 +107,27 @@ public class Calculator {
 	 */
 	public static double computeExpectedScore(int ratingDif) {
 
-		double[] fide = new double[401]; // length 401 since rating will be 0-400
+		double[] fide = new double[401]; // length 401 since rating will be
+											// 0-400
 
-		// retrieve text file which contains all expected values for rating differences
+		// retrieve text file which contains all expected values for rating
+		// differences
 		try {
-			BufferedReader expected = new BufferedReader(new FileReader("expected.txt"));
+			BufferedReader in = new BufferedReader(new FileReader("expected.txt"));
+			String str = in.readLine();
 			for (int i = 0; i < fide.length; i++) {
 				try {
-					fide[i] = Double.parseDouble(expected.readLine());
-				} catch (NumberFormatException | IOException e) {
+					String[] ar = str.split(",");
+					fide[i] = Double.parseDouble(ar[i]);
+				} catch (NumberFormatException e) {
 					e.printStackTrace();
 				}
 			}
-			expected.close();
+			in.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	
+
 		return (ratingDif < 0) ? (1 - fide[Math.abs(ratingDif)]) : fide[ratingDif];
 	}
 
@@ -132,8 +138,14 @@ public class Calculator {
 	 * @param expResult
 	 * @return the rating change from one game
 	 */
-	public static double computeRatingChange(int kFactor, double result, double expResult) {
-		return kFactor * (result - expResult);
+	public static double computeRatingChange(int oldRating, int kFactor, double result, double expResult) {
+
+		double change = kFactor * (result - expResult);
+
+		if ((oldRating + change) < MIN_RATING) {
+			return oldRating - computeNewRating(oldRating, change);
+		}
+		return change;
 	}
 
 	/**
@@ -143,6 +155,10 @@ public class Calculator {
 	 * @return the new rating from the old + the change
 	 */
 	public static double computeNewRating(int oldRating, double change) {
+
+		if ((oldRating + change) < MIN_RATING) {
+			return MIN_RATING;
+		}
 		return oldRating + change;
 	}
 
@@ -152,9 +168,9 @@ public class Calculator {
 	 * @param isScoreValid
 	 * @return whether the parameters are valid
 	 */
-	public static boolean checkValidity(boolean isRatingValid, boolean isScoreValid){
+	public static boolean checkValidity(boolean isRatingValid, boolean isScoreValid) {
 		boolean isValid = true;
-		
+
 		if (!isRatingValid) {
 			JOptionPane.showMessageDialog(null, "User's rating must be an integer of at least " + MIN_RATING + ".");
 			isValid = false;
@@ -168,7 +184,7 @@ public class Calculator {
 		}
 		return isValid;
 	}
-	
+
 	/**
 	 * 
 	 * @param value
