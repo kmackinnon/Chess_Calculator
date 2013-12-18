@@ -19,12 +19,11 @@ public class ExecutionPanel extends JPanel implements Standard {
 	private static JButton calculate = new JButton("Calculate");
 	private static JButton exit = new JButton("Exit");
 
+	// setting panel's properties
 	public ExecutionPanel() {
-		// setting panel's properties
 		setLayout(new FlowLayout());
 		setPreferredSize(new Dimension(STD_WIDTH, STDH_OPP));
-		// bottom, left, right, top
-		setBorder(new EmptyBorder(15, 10, 10, 10));
+		setBorder(new EmptyBorder(15, 10, 10, 10)); // bottom, left, right, top
 
 		build();
 	}

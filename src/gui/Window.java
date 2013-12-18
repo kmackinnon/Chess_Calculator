@@ -13,17 +13,17 @@ public class Window extends JFrame implements Standard {
 	private static Container main;
 	private static Container sub;
 
-	private static SelfPanel selfpanel = new SelfPanel();
-	private static KFactorPanel kfactorpanel = new KFactorPanel();
-	private static OpponentsPanel opponentspanel = new OpponentsPanel();
-	private static ExecutionPanel executionpanel = new ExecutionPanel();
+	private static SelfPanel selfPanel = new SelfPanel();
+	private static KFactorPanel kFactorPanel = new KFactorPanel();
+	private static OpponentsPanel opponentsPanel = new OpponentsPanel();
+	private static ExecutionPanel executionPanel = new ExecutionPanel();
 
 	public Window() {
-		framemake();
-		panelmake();
+		frameMake();
+		panelMake();
 	}
 
-	private void framemake() {
+	private void frameMake() {
 
 		// Setters for the window
 		setTitle(TITLE);
@@ -35,20 +35,20 @@ public class Window extends JFrame implements Standard {
 		setLocationRelativeTo(null);
 	}
 
-	private void panelmake() {
+	private void panelMake() {
 
 		// setting up the X_AXIS Container for the first two panels
 		sub = new Container();
 		sub.setLayout(new BoxLayout(sub, BoxLayout.X_AXIS));
-		sub.add(selfpanel);
-		sub.add(kfactorpanel);
+		sub.add(selfPanel);
+		sub.add(kFactorPanel);
 
 		// setting up the JFrame's container
 		main = getContentPane();
 		main.setLayout(new BoxLayout(main, BoxLayout.Y_AXIS));
 		main.add(sub);
-		main.add(opponentspanel);
-		main.add(executionpanel);
+		main.add(opponentsPanel);
+		main.add(executionPanel);
 
 	}
 

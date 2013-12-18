@@ -10,19 +10,17 @@ import javax.swing.border.EmptyBorder;
 
 @SuppressWarnings("serial")
 public class SelfPanel extends JPanel implements Standard {
-	// Fields and labels
+
 	private static JLabel ratinglabel = new JLabel("Rating:");
 	private static JTextField ratingfield = new JTextField();
 	private static JLabel scorelabel = new JLabel("Score:");
 	private static JTextField scorefield = new JTextField();
 
+	// setting panel's properties
 	public SelfPanel() {
-
-		// setting panel's properties
 		setLayout(new GridLayout(2, 2));
 		setPreferredSize(new Dimension(2 * STD_WIDTH / 3, STDH_TOP));
-		// bottom, left, right, top
-		setBorder(new EmptyBorder(30, 30, 30, 30));
+		setBorder(new EmptyBorder(30, 30, 30, 30)); // bottom, left, right, top
 
 		build();
 	}
@@ -38,8 +36,7 @@ public class SelfPanel extends JPanel implements Standard {
 	public static int getUserRating() {
 		try {
 			return Integer.parseInt(ratingfield.getText());
-		}
-		catch (NumberFormatException e){
+		} catch (NumberFormatException e) {
 			return 999; // this will signal an invalid rating to the Calculator class
 		}
 	}
@@ -47,7 +44,7 @@ public class SelfPanel extends JPanel implements Standard {
 	public static double getScore() {
 		try {
 			return Double.parseDouble(scorefield.getText());
-		} catch (NumberFormatException e){
+		} catch (NumberFormatException e) {
 			return -1; // this will signal an invalid score to the Calculator class
 		}
 	}
