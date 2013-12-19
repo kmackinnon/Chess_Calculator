@@ -11,7 +11,6 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import calculate.Calculator;
-import calculate.Tournament;
 
 @SuppressWarnings("serial")
 public class ExecutionPanel extends JPanel implements Standard {
