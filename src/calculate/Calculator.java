@@ -69,7 +69,7 @@ public class Calculator {
 
 		// retrieve text file which contains all expected values for rating differences
 		try {
-			BufferedReader in = new BufferedReader(new FileReader("expected.txt"));
+			BufferedReader in = new BufferedReader(new FileReader("res/expected.txt"));
 			String str = in.readLine();
 			for (int i = 0; i < fide.length; i++) {
 				try {
