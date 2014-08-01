@@ -6,7 +6,7 @@ public interface Standard {
 	String TITLE = "Rating Calculator";
 
 	// KFactor Values
-	String[] KFACTOR_VALUES = { "10", "15", "30" };
+	String[] KFACTOR_VALUES = { "10", "20", "40" };
 
 	// Standard Height for the top pane
 	int STDH_TOP = 100;
